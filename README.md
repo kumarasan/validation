@@ -1,9 +1,9 @@
 # validation
 validation
 
-# Example Component 
+## Code Examples
 
-`import React, { Fragment, useMemo, useReducer, useState } from 'react';
+```import React, { Fragment, useMemo, useReducer, useState } from 'react';
 import Validator from '../index';
 
 export function Example() {
@@ -58,4 +58,4 @@ export function Example() {
   )
 }
 
-export default Example`
+export default Example```
