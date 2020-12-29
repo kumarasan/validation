@@ -53,34 +53,14 @@ export default class Validator {
       this.rules[key].message = this.rules[key].message
     });
 
-    // apply default options
     this.messages = options.messages || {};
     this.className = options.className;
     this.autoForceUpdate = options.autoForceUpdate || false;
-
-    // apply default element
-    if (options.element === false) {
-      this.element = message => message;
-    } else if (options.hasOwnProperty('element')) {
-      this.element = options.element;
-    } else if (typeof navigator === 'object' && navigator.product === 'ReactNative') {
-      this.element = message => message;
-    } else {
-      this.element = (message, className) => React.createElement('span', { className: (className || this.className || 'srv-validation-message') }, message);
-    }
   }
 
-  getErrorMessages() {
-    return this.errorMessages;
-  }
 
   showMessages() {
     this.messagesShown = true;
-    this.helpers.forceUpdateIfNeeded();
-  }
-
-  hideMessages() {
-    this.messagesShown = false;
     this.helpers.forceUpdateIfNeeded();
   }
 
@@ -91,13 +71,6 @@ export default class Validator {
     this.helpers.forceUpdateIfNeeded();
   }
 
-  hideMessageFor = field => {
-    const index = this.visibleFields.indexOf(field);
-    if (index > -1) {
-      this.visibleFields.splice(index, 1);
-    }
-    this.helpers.forceUpdateIfNeeded();
-  }
 
   allValid() {
     for (let key in this.fields) {
@@ -115,19 +88,6 @@ export default class Validator {
   purgeFields() {
     this.fields = {};
     this.errorMessages = {};
-  }
-
-  messageWhenPresent(message, options = {}) {
-    if (!this.helpers.isBlank(message) && this.messagesShown) {
-      return this.helpers.element(message, options);
-    }
-  }
-
-  messageAlways(field, message, options = {}) {
-    console.warn('The messageAlways() method is deprecated in SimpleReactValidator. Please see the documentation and switch to the messageWhenPresent() method.')
-    if (message && this.messagesShown) {
-      return this.helpers.element(message, options);
-    }
   }
 
   check(inputValue, validations, options = {}) {
@@ -249,14 +209,10 @@ export default class Validator {
     },
 
     humanizeFieldName(field) {
-      // supports snake_case or camelCase
       return field.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').toLowerCase();
     },
 
     element(message, options) {
-      //const { messages:{cutomMessage} } = options;
-      //var element = options.element || this.parent.element;
-      //return element(message, options.className);
       return message
     },
 

@@ -1,7 +1,7 @@
 # validation
 validation
 
-## Code Examples
+## Code Example
 
 ```
 import React, { Fragment, useMemo, useReducer, useState } from 'react';
